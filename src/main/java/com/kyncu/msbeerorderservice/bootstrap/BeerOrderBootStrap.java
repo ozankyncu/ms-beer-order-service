@@ -3,6 +3,7 @@ package com.kyncu.msbeerorderservice.bootstrap;
 import com.kyncu.msbeerorderservice.domain.Customer;
 import com.kyncu.msbeerorderservice.repositories.CustomerRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -10,6 +11,7 @@ import java.util.UUID;
 
 @RequiredArgsConstructor
 @Component
+@Slf4j
 public class BeerOrderBootStrap implements CommandLineRunner {
     public static final String TASTING_ROOM = "Tasting Room";
     public static final String BEER_1_UPC = "0631234200036";
@@ -20,6 +22,8 @@ public class BeerOrderBootStrap implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+        log.error("customer loaded");
+
         loadCustomerData();
     }
 

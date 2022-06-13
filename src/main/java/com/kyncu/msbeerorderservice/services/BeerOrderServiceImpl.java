@@ -17,10 +17,10 @@
 
 package com.kyncu.msbeerorderservice.services;
 
+import com.kyncu.msbeerorderservice.repositories.BeerOrderRepository;
 import com.kyncu.msbeerorderservice.domain.BeerOrder;
 import com.kyncu.msbeerorderservice.domain.Customer;
 import com.kyncu.msbeerorderservice.domain.OrderStatusEnum;
-import com.kyncu.msbeerorderservice.repositories.BeerOrderRepository;
 import com.kyncu.msbeerorderservice.repositories.CustomerRepository;
 import com.kyncu.msbeerorderservice.web.mappers.BeerOrderMapper;
 import com.kyncu.msbeerorderservice.web.model.BeerOrderDto;
@@ -93,7 +93,7 @@ public class BeerOrderServiceImpl implements BeerOrderService {
             log.debug("Saved Beer Order: " + beerOrder.getId());
 
             //todo impl
-          //  publisher.publishEvent(new NewBeerOrderEvent(savedBeerOrder));
+            //  publisher.publishEvent(new NewBeerOrderEvent(savedBeerOrder));
 
             return beerOrderMapper.beerOrderToDto(savedBeerOrder);
         }
