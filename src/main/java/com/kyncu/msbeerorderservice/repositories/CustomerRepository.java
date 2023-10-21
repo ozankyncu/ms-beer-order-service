@@ -18,10 +18,11 @@ package com.kyncu.msbeerorderservice.repositories;
 
 import com.kyncu.msbeerorderservice.domain.Customer;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 import java.util.UUID;
 
 public interface CustomerRepository extends JpaRepository<Customer, UUID> {
-    List<Customer> findAllByCustomerNameLike(String customerName);
+    List<Customer> findAllByCustomerNameLike(@Param("customerName") String customerName);
 }
