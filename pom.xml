@@ -3,9 +3,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>com.kyncu</groupId>
-        <artifactId>ms-brewery-bom</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <groupId>io.github.ozankyncu</groupId>
+        <artifactId>ms-common-bom</artifactId>
+        <version>1.0.0</version>
     </parent>
     <groupId>com.kyncu</groupId>
     <artifactId>ms-beer-order-service</artifactId>
@@ -13,4 +13,7 @@
     <name>ms-beer-order-service</name>
     <description>Beer Order Service</description>
 
+    <properties>
+        <org.mapstruct.version>1.5.0.Final</org.mapstruct.version>
+    </properties>
 </project>
