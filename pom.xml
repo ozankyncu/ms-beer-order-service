@@ -16,4 +16,11 @@
     <properties>
         <org.mapstruct.version>1.5.0.Final</org.mapstruct.version>
     </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-artemis</artifactId>
+        </dependency>
+    </dependencies>
 </project>
