@@ -20,7 +20,7 @@ package com.kyncu.beersystem.services;
 import com.kyncu.beersystem.repositories.BeerOrderRepository;
 import com.kyncu.beersystem.domain.BeerOrder;
 import com.kyncu.beersystem.domain.Customer;
-import com.kyncu.beersystem.domain.OrderStatusEnum;
+import com.kyncu.beersystem.domain.BeerOrderStatusEnum;
 import com.kyncu.beersystem.repositories.CustomerRepository;
 import com.kyncu.beersystem.web.mappers.BeerOrderMapper;
 import com.kyncu.beersystem.web.model.BeerOrderDto;
@@ -84,7 +84,7 @@ public class BeerOrderServiceImpl implements BeerOrderService {
             BeerOrder beerOrder = beerOrderMapper.dtoToBeerOrder(beerOrderDto);
             beerOrder.setId(null); //should not be set by outside client
             beerOrder.setCustomer(customerOptional.get());
-            beerOrder.setOrderStatus(OrderStatusEnum.NEW);
+            beerOrder.setOrderStatus(BeerOrderStatusEnum.NEW);
 
             beerOrder.getBeerOrderLines().forEach(line -> line.setBeerOrder(beerOrder));
 
@@ -109,7 +109,7 @@ public class BeerOrderServiceImpl implements BeerOrderService {
     @Override
     public void pickupOrder(UUID customerId, UUID orderId) {
         BeerOrder beerOrder = getOrder(customerId, orderId);
-        beerOrder.setOrderStatus(OrderStatusEnum.PICKED_UP);
+        beerOrder.setOrderStatus(BeerOrderStatusEnum.PICKED_UP);
 
         beerOrderRepository.save(beerOrder);
     }
