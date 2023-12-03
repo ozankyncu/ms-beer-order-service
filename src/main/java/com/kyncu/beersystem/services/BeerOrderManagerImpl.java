@@ -5,7 +5,6 @@ import com.kyncu.beersystem.domain.BeerOrder;
 import com.kyncu.beersystem.domain.BeerOrderEventEnum;
 import com.kyncu.beersystem.domain.BeerOrderStatusEnum;
 import com.kyncu.beersystem.repositories.BeerOrderRepository;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import lombok.RequiredArgsConstructor;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.support.MessageBuilder;
