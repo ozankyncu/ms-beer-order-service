@@ -18,8 +18,8 @@
 package com.kyncu.beersystem.web.controllers;
 
 import com.kyncu.beersystem.services.BeerOrderService;
-import com.kyncu.beersystem.web.model.BeerOrderDto;
-import com.kyncu.beersystem.web.model.BeerOrderPagedList;
+import com.kyncu.beersystem.brewery.model.BeerOrderDto;
+import com.kyncu.beersystem.brewery.model.BeerOrderPagedList;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

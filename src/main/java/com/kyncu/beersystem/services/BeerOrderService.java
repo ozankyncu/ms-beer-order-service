@@ -18,8 +18,8 @@
 package com.kyncu.beersystem.services;
 
 
-import com.kyncu.beersystem.web.model.BeerOrderDto;
-import com.kyncu.beersystem.web.model.BeerOrderPagedList;
+import com.kyncu.beersystem.brewery.model.BeerOrderDto;
+import com.kyncu.beersystem.brewery.model.BeerOrderPagedList;
 import org.springframework.data.domain.Pageable;
 
 import java.util.UUID;

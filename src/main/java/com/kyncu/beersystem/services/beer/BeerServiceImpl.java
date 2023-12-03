@@ -1,6 +1,6 @@
 package com.kyncu.beersystem.services.beer;
 
-import com.kyncu.beersystem.web.model.BeerDto;
+import com.kyncu.beersystem.brewery.model.BeerDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.web.client.RestTemplateBuilder;

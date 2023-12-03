@@ -1,4 +1,4 @@
-package com.kyncu.beersystem.web.model;
+package com.kyncu.beersystem.brewery.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

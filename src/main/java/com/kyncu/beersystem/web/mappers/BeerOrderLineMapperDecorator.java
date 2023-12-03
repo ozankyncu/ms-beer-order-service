@@ -2,8 +2,8 @@ package com.kyncu.beersystem.web.mappers;
 
 import com.kyncu.beersystem.domain.BeerOrderLine;
 import com.kyncu.beersystem.services.beer.BeerService;
-import com.kyncu.beersystem.web.model.BeerDto;
-import com.kyncu.beersystem.web.model.BeerOrderLineDto;
+import com.kyncu.beersystem.brewery.model.BeerDto;
+import com.kyncu.beersystem.brewery.model.BeerOrderLineDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
