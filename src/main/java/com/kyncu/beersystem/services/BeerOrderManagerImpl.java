@@ -1,9 +1,11 @@
 package com.kyncu.beersystem.services;
 
+import com.kyncu.beersystem.brewery.model.events.ValidateOrderResult;
 import com.kyncu.beersystem.domain.BeerOrder;
 import com.kyncu.beersystem.domain.BeerOrderEventEnum;
 import com.kyncu.beersystem.domain.BeerOrderStatusEnum;
 import com.kyncu.beersystem.repositories.BeerOrderRepository;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import lombok.RequiredArgsConstructor;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.support.MessageBuilder;
@@ -12,6 +14,8 @@ import org.springframework.statemachine.config.StateMachineFactory;
 import org.springframework.statemachine.support.DefaultStateMachineContext;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.UUID;
 
 @RequiredArgsConstructor
 @Service
@@ -33,6 +37,17 @@ public class BeerOrderManagerImpl implements BeerOrderManager {
         BeerOrder savedBeerOrder = beerOrderRepository.save(beerOrder);
         sendBeerOrderEvent(savedBeerOrder, BeerOrderEventEnum.VALIDATE_ORDER);
         return savedBeerOrder;
+    }
+
+    @Override
+    public void processValidationResult(UUID beerOrderID, Boolean isValid) {
+        BeerOrder beerOrder = beerOrderRepository.getOne(beerOrderID);
+
+        if (isValid) {
+            sendBeerOrderEvent(beerOrder, BeerOrderEventEnum.VALIDATION_PASSED);
+        }
+        sendBeerOrderEvent(beerOrder, BeerOrderEventEnum.VALIDATION_FAILED);
+
     }
 
     private void sendBeerOrderEvent(BeerOrder beerOrder, BeerOrderEventEnum eventEnum) {

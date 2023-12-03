@@ -1,6 +1,6 @@
 package com.kyncu.beersystem.sm.actions;
 
-import com.kyncu.beersystem.brewery.model.events.ValidateBeerOrderRequest;
+import com.kyncu.beersystem.brewery.model.events.ValidateOrderRequest;
 import com.kyncu.beersystem.config.JmsConfig;
 import com.kyncu.beersystem.domain.BeerOrder;
 import com.kyncu.beersystem.domain.BeerOrderEventEnum;
@@ -32,7 +32,7 @@ public class ValidateOrderAction implements Action<BeerOrderStatusEnum, BeerOrde
         BeerOrder beerOrder = beerOrderRepository.findOneById(UUID.fromString(beerOrderId));
 
         jmsTemplate.convertAndSend(JmsConfig.VALIDATE_ORDER_QUEUE,
-                ValidateBeerOrderRequest.builder()
+                ValidateOrderRequest.builder()
                         .beerOrder(beerOrderMapper.beerOrderToDto(beerOrder))
                         .build());
 

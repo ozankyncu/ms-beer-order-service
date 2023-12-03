@@ -7,6 +7,6 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ValidateBeerOrderRequest {
+public class ValidateOrderRequest {
     BeerOrderDto beerOrder;
 }
