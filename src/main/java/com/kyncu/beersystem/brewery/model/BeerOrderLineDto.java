@@ -51,5 +51,6 @@ public class BeerOrderLineDto {
     private Integer orderQuantity = 0;
     private BigDecimal price;
     private String beerStyle;
+    private Integer quantityAllocated;
 
 }
