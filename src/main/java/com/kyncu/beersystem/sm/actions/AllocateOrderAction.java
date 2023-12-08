@@ -1,5 +1,6 @@
 package com.kyncu.beersystem.sm.actions;
 
+import com.kyncu.beersystem.brewery.model.events.AllocateOrderRequest;
 import com.kyncu.beersystem.config.JmsConfig;
 import com.kyncu.beersystem.domain.BeerOrder;
 import com.kyncu.beersystem.domain.BeerOrderEventEnum;
@@ -34,7 +35,9 @@ public class AllocateOrderAction implements Action<BeerOrderStatusEnum, BeerOrde
 
         beerOrderOptional.ifPresentOrElse(beerOrder -> {
             jmsTemplate.convertAndSend(JmsConfig.ALLOCATE_ORDER_QUEUE,
-                    beerOrderMapper.beerOrderToDto(beerOrderOptional.get()));
+                    AllocateOrderRequest.builder()
+                            .beerOrderDto(beerOrderMapper.beerOrderToDto(beerOrder))
+                            .build());
             log.debug("Sent Allocation Request for order id: " + beerOrderId);
         }, () -> log.error("Beer Order Not Found!"));
 
