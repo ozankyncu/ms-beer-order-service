@@ -94,6 +94,20 @@ public class BeerOrderManagerImpIntegration {
     }
 
     @Test
+    void testFailedValidation() {
+        BeerOrder beerOrder = createBeerOrder();
+        beerOrder.setCustomerRef("fail-validation");
+
+        BeerOrder savedBeerOrder = beerOrderManager.newBeerOrder(beerOrder);
+
+        await().untilAsserted(() -> {
+            BeerOrder foundOrder = beerOrderRepository.findById(beerOrder.getId()).get();
+            assertEquals(BeerOrderStatusEnum.VALIDATION_EXCEPTION, foundOrder.getOrderStatus());
+        });
+
+    }
+
+    @Test
     void testNewToPickedUp() throws JsonProcessingException {
 
         BeerOrder beerOrder = createBeerOrder();
