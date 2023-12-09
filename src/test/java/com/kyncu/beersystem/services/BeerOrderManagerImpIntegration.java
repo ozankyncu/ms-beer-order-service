@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.junit5.WireMockExtension;
 import com.kyncu.beersystem.brewery.model.BeerDto;
+import com.kyncu.beersystem.brewery.model.events.AllocationFailureEvent;
+import com.kyncu.beersystem.config.JmsConfig;
 import com.kyncu.beersystem.domain.BeerOrder;
 import com.kyncu.beersystem.domain.BeerOrderLine;
 import com.kyncu.beersystem.domain.BeerOrderStatusEnum;
@@ -18,6 +20,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.jms.core.JmsTemplate;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -40,6 +43,9 @@ public class BeerOrderManagerImpIntegration {
 
     @Autowired
     ObjectMapper objectMapper;
+
+    @Autowired
+    JmsTemplate jmsTemplate;
 
     @Autowired
     CustomerRepository customerRepository;
@@ -94,6 +100,38 @@ public class BeerOrderManagerImpIntegration {
     }
 
     @Test
+    void testFailedAllocation() throws JsonProcessingException, InterruptedException {
+        BeerOrder beerOrder = createBeerOrder();
+        beerOrder.setCustomerRef("fail-allocation");
+
+
+        BeerOrder savedBeerOrder = beerOrderManager.newBeerOrder(beerOrder);
+
+        await().untilAsserted(() -> {
+            BeerOrder foundOrder = beerOrderRepository.findById(beerOrder.getId()).get();
+            assertEquals(BeerOrderStatusEnum.ALLOCATION_EXCEPTION, foundOrder.getOrderStatus());
+        });
+
+        AllocationFailureEvent allocationFailureEvent = (AllocationFailureEvent) jmsTemplate.receiveAndConvert(JmsConfig.ALLOCATE_FAILURE_QUEUE);
+        assertNotNull(allocationFailureEvent);
+        assertEquals(allocationFailureEvent.getOrderId(), savedBeerOrder.getId());
+    }
+
+    @Test
+    void testPartialAllocation() {
+        BeerOrder beerOrder = createBeerOrder();
+        beerOrder.setCustomerRef("partial-allocation");
+
+        BeerOrder savedBeerOrder = beerOrderManager.newBeerOrder(beerOrder);
+
+        await().untilAsserted(() -> {
+            BeerOrder foundOrder = beerOrderRepository.findById(beerOrder.getId()).get();
+            assertEquals(BeerOrderStatusEnum.PENDING_INVENTORY, foundOrder.getOrderStatus());
+        });
+
+    }
+
+    @Test
     void testFailedValidation() {
         BeerOrder beerOrder = createBeerOrder();
         beerOrder.setCustomerRef("fail-validation");
@@ -104,7 +142,6 @@ public class BeerOrderManagerImpIntegration {
             BeerOrder foundOrder = beerOrderRepository.findById(beerOrder.getId()).get();
             assertEquals(BeerOrderStatusEnum.VALIDATION_EXCEPTION, foundOrder.getOrderStatus());
         });
-
     }
 
     @Test

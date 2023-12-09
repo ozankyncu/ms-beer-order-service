@@ -3,7 +3,6 @@ package com.kyncu.beersystem.services.listeners;
 import com.kyncu.beersystem.brewery.model.events.ValidateOrderResult;
 import com.kyncu.beersystem.config.JmsConfig;
 import com.kyncu.beersystem.services.BeerOrderManager;
-import com.kyncu.beersystem.web.mappers.BeerOrderMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.jms.annotation.JmsListener;
