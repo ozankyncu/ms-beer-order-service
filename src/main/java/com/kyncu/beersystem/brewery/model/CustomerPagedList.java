@@ -17,33 +17,18 @@
 
 package com.kyncu.beersystem.brewery.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.*;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 
-import java.time.OffsetDateTime;
-import java.util.UUID;
+import java.util.List;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
-public class CustomerDto {
+public class CustomerPagedList extends PageImpl<CustomerDto> {
 
-    @JsonProperty("id")
-    private UUID id = null;
+    public CustomerPagedList(List<CustomerDto> content, Pageable pageable, long total) {
+        super(content, pageable, total);
+    }
 
-    @JsonProperty("version")
-    private Integer version = null;
-
-    @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ssZ", shape=JsonFormat.Shape.STRING)
-    @JsonProperty("createdDate")
-    private OffsetDateTime createdDate = null;
-
-    @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ssZ", shape=JsonFormat.Shape.STRING)
-    @JsonProperty("lastModifiedDate")
-    private OffsetDateTime lastModifiedDate = null;
-
-    private String customerName;
-
+    public CustomerPagedList(List<CustomerDto> content) {
+        super(content);
+    }
 }
