@@ -29,7 +29,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/customers/")
+@RequestMapping("/api/v1/")
 @RestController
 public class CustomerController {
 
