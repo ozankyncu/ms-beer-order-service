@@ -56,7 +56,7 @@
     <properties>
         <org.mapstruct.version>1.5.0.Final</org.mapstruct.version>
         <spring-cloud.version>2021.0.3</spring-cloud.version>
-        <docker.image.prefix>kyncu</docker.image.prefix>
+        <docker.image.prefix>ozankyncu</docker.image.prefix>
         <docker.image.name>${project.artifactId}</docker.image.name>
     </properties>
 
