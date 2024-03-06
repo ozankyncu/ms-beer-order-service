@@ -12,6 +12,34 @@
                     <target>9</target>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>io.fabric8</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>0.33.0</version>
+                <configuration>
+                    <!--
+                      <dockerHost>http://127.0.0.1:2375</dockerHost>
+                      <dockerHost>unix:///var/run/docker.sock</dockerHost>
+                     -->
+                    <verbose>true</verbose>
+                    <images>
+                        <image>
+                            <name>${docker.image.prefix}/${docker.image.name}</name>
+                            <alias>${project.artifactId}</alias>
+                            <build>
+                                <assembly>
+                                    <descriptorRef>artifact</descriptorRef>
+                                </assembly>
+                                <dockerFile>Dockerfile</dockerFile>
+                                <tags>
+                                    <tag>latest</tag>
+                                    <tag>${project.version}</tag>
+                                </tags>
+                            </build>
+                        </image>
+                    </images>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
     <parent>
@@ -28,6 +56,8 @@
     <properties>
         <org.mapstruct.version>1.5.0.Final</org.mapstruct.version>
         <spring-cloud.version>2021.0.3</spring-cloud.version>
+        <docker.image.prefix>kyncu</docker.image.prefix>
+        <docker.image.name>${project.artifactId}</docker.image.name>
     </properties>
 
     <dependencyManagement>
@@ -109,4 +139,7 @@
         </dependency>
 
     </dependencies>
+
+
+
 </project>
